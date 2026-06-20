@@ -1,4 +1,5 @@
 def find_language_information(languages, language_name)
+  languages[language_name]
   # Take languages (a nested hash) and language_name as a symbol, return the
   # value for the language_name key (which will be another hash!)
 
@@ -10,31 +11,41 @@ def find_language_information(languages, language_name)
 end
 
 def add_information_about_language(languages, language_name, info_key, info_value)
+  languages[language_name][info_key] = info_value
+  languages
   # Take languages and add the key/value pair info_key/info_value to the nested
   # hash of language_name, then return the updated languages hash
 end
 
 def add_language(languages, language_name, language_info_value)
+  languages[language_name] = language_info_value
+  languages
   # Take languages and add the key/value pair language_name/language_info_value
   # to it, then return languages
 end
 
 def delete_information_about_language(languages, language_name, info_key)
+  languages[language_name].delete(info_key)
+  languages
   # Take languages and delete the key/value pair with key info_key from
   # language_name, then return languages
 end
 
 def delete_language(languages, language_name)
+  languages.delete(language_name)
+  languages
   # Take languages and delete the language_name key/value pair, then return
   # languages
 end
 
 def find_beautiful_languages(languages)
+  languages.select { |_, info| info[:is_beautiful?] == true }
   # Take languages and return a hash containing only languages which have the
   # key/value pair { is_beautiful?: true } listed in their information
 end
 
 def find_language_facts(languages, language_name, fact_index = 0)
+  languages.fetch(language_name, {}).fetch(:facts, []).fetch(fact_index, nil)
   # Take languages (now with additional facts added to each language with the
   # key :facts and value of an array of strings) and return the fact
   # language_name has at fact_index of its facts array, or at index 0 if this

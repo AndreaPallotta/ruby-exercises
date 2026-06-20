@@ -1,4 +1,5 @@
 def blank_seating_chart(number_of_rows, seats_per_row)
+  Array.new(number_of_rows) { Array.new(seats_per_row) { nil } }
   # return a 2d array to represent a seating chart that contains
   # number_of_rows nested arrays, each with seats_per_row entries of nil to
   # represent that each seat is empty.
@@ -14,16 +15,22 @@ def blank_seating_chart(number_of_rows, seats_per_row)
 end
 
 def add_seat_to_row(chart, row_index, seat_to_add)
+  chart[row_index] << seat_to_add
+  chart
   # take a chart (2d array)  and add seat_to_add to the end of the row that is
   # at row_index index of the chart, then return the chart
 end
 
 def add_another_row(chart, row_to_add)
+  chart << row_to_add
+  chart
   # take a chart and add row_to_add to the end of the chart,
   # then return the chart.
 end
 
 def delete_seat_from_row(chart, row_index, seat_index)
+  chart[row_index].delete_at(seat_index)
+  chart
   # take a chart and delete the seat at seat_index of the row at row_index of
   # the chart, then return the chart
 
@@ -31,17 +38,21 @@ def delete_seat_from_row(chart, row_index, seat_index)
 end
 
 def delete_row_from_chart(chart, row_index)
+  chart.delete_at(row_index)
+  chart
   # take a chart and delete the row at row_index of the chart,
   # then return the chart
 end
 
 def count_empty_seats(chart)
+  chart.flatten.count(nil)
   # take a chart and return the number of empty (nil) seats in it
 
   # NOTE: `chart` should **not** be mutated
 end
 
 def find_favorite(array_of_hash_objects)
+  array_of_hash_objects.find { |hash| hash[:is_my_favorite?] == true }
   # take an array_of_hash_objects and return the hash which has the key/value
   # pair :is_my_favorite? => true. If no hash returns the value true to the key
   # :is_my_favorite? it should return nil
